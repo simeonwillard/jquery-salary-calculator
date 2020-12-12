@@ -6,9 +6,13 @@ $(document).ready(readyNow);
 const employeeInfo = [];
 
 function readyNow(){
-    $('#submit').on('click', handleClick);
-}
 
+    // on clicking the submit button run function handleClick 
+    $('#submit').on('click', handleClick);
+
+} // end readyNow
+
+//storing the user input into an object and pushing that input into employeeInfo
 function handleClick(){
 
     // testing function handleClick
@@ -21,7 +25,7 @@ function handleClick(){
         idNumber: $('#idNumber').val(),
         jobTitle: $('#jobTitle').val(),
         annualSalary: $('#salary').val()
-    }
+    } //end object info
 
     // pushing new object to the array employeeInfo
     employeeInfo.push(info);
@@ -35,8 +39,9 @@ function handleClick(){
     //calling function renderToDom to add employeeInfo to DOM
     renderToDom();
     
-}
+} // end handleClick
 
+//rendering the pushed user input to a table on the DOM
 function renderToDom(){
 
     //testing function renderToDom
@@ -46,19 +51,28 @@ function renderToDom(){
     //clearing the list
     $('#employeeList').empty();
 
-    //looping over the array to display each employee
+    //looping over the array to display each employee and calculate the 
+    // monthly cost of each employee in dollars
     for(let employee of employeeInfo){
+        let cost = parseFloat(employee.annualSalary / 12).toFixed(2);
         $('#employeeList').append(`
         <tr class="employees">
             <td>${employee.firstName}</td>
             <td>${employee.lastName}</td>
             <td>${employee.idNumber}</td>
             <td>${employee.jobTitle}</td>
-            <td>${employee.annualSalary}</td>
-        </tr>`)
-    }
+            <td>$${employee.annualSalary}</td>
+            <td data-type="monthlycost">$${cost}</td> 
+        </tr>`);
+        
+        if (cost >= 20000){
+             $().css("background-color", "red");
+         }// end if statement
+
+    } // end for loop
     
-}
+} // end renderToDom
+
 
 // function renderTableHeadings(){
 
@@ -68,7 +82,7 @@ function renderToDom(){
 //     $('.table').append(`
 //     <thead id="tableHead">
 //             <tr class="tableHead">
-//                 <th class="tableHead">${heads}</th>
+//                 <th class="tableHead">${heads}</th>`
 //                 // <th class="tableHead">${heads}</th>
 //                 // <th class="tableHead">${heads}</th>
 //                 // <th class="tableHead">${heads}</th>

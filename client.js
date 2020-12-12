@@ -5,7 +5,13 @@ $(document).ready(readyNow);
 //declaring our array variable to store the user information
 const employeeInfo = [];
 
-function readyNow(){
+//declaring our costs variables 
+let monthlyCost = 0;
+let totalMonthlyWages = [];
+let wages = 0;
+
+
+function readyNow() {
 
     // on clicking the submit button run function handleClick 
     $('#submit').on('click', handleClick);
@@ -13,7 +19,7 @@ function readyNow(){
 } // end readyNow
 
 //storing the user input into an object and pushing that input into employeeInfo
-function handleClick(){
+function handleClick() {
 
     // testing function handleClick
     console.log('in handleClick');
@@ -38,11 +44,14 @@ function handleClick(){
 
     //calling function renderToDom to add employeeInfo to DOM
     renderToDom();
-    
+
+    //calling function addTotalCost 
+    addTotalCost();
+
 } // end handleClick
 
 //rendering the pushed user input to a table on the DOM
-function renderToDom(){
+function renderToDom() {
 
     //testing function renderToDom
     console.log('in renderToDom');
@@ -53,8 +62,9 @@ function renderToDom(){
 
     //looping over the array to display each employee and calculate the 
     // monthly cost of each employee in dollars
-    for(let employee of employeeInfo){
-        let cost = parseFloat(employee.annualSalary / 12).toFixed(2);
+    let wages = 0;
+    for (let employee of employeeInfo) {
+        wages = parseFloat(employee.annualSalary / 12);
         $('#employeeList').append(`
         <tr class="employees">
             <td>${employee.firstName}</td>
@@ -62,16 +72,51 @@ function renderToDom(){
             <td>${employee.idNumber}</td>
             <td>${employee.jobTitle}</td>
             <td>$${employee.annualSalary}</td>
-            <td data-type="monthlycost">$${cost}</td> 
+            <td><button id="delete">Delete</button> 
         </tr>`);
-        
-        if (cost >= 20000){
-             $().css("background-color", "red");
-         }// end if statement
+
 
     } // end for loop
-    
+    monthlyCost = Number.parseFloat(wages).toFixed(2);
+    totalMonthlyWages.push(monthlyCost);
+    console.log(totalMonthlyWages);
+    console.log(monthlyCost)
+    //monthlyCost.push(wages);
+
 } // end renderToDom
+
+
+function addTotalCost() {
+
+    //testing function addTotalCost
+    console.log('in addTotalCost');
+    let sumOfWages = 0;
+
+    //add together all monthly wages
+
+    for (let i = 0; i < totalMonthlyWages.length; i++) {
+        sumOfWages += Number(totalMonthlyWages[i]);
+    } // end for loop
+    console.log('sum of wages is: ', sumOfWages);
+
+    $('#totalCost').empty();
+    $('#totalCost').append(`
+    <td>Total Monthly: $${sumOfWages.toFixed(2)}</td>
+    `);
+
+    if (sumOfWages >= 20000) {
+        $('#totalCost').css("background-color", "red");
+    }// end if statement
+}
+
+    // for (let wages of employeeInfo){
+    //     totalMonthlyCost = Number(parseFloat(wages.annualSalary + cost).toFixed(2));
+    //     $('#totalCost').append(`
+    //     <h2>$${totalMonthlyCost}</h2>
+    //     `);
+    // } 
+
+
 
 
 // function renderTableHeadings(){
@@ -82,7 +127,7 @@ function renderToDom(){
 //     $('.table').append(`
 //     <thead id="tableHead">
 //             <tr class="tableHead">
-//                 <th class="tableHead">${heads}</th>`
+//                 <th class="tableHead">${heads}</th>
 //                 // <th class="tableHead">${heads}</th>
 //                 // <th class="tableHead">${heads}</th>
 //                 // <th class="tableHead">${heads}</th>

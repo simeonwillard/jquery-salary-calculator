@@ -100,11 +100,11 @@ function addTotalCost() {
     $('#totalCost').empty();
 
     $('#totalCost').append(`
-    <td>Total Monthly: $${sumOfWages.toFixed(2)}</td>
+    <td id="total">Total Monthly: $${sumOfWages.toFixed(2)}</td>
     `);
 
     if (sumOfWages >= 20000) {
-        $('#totalCost').css("background-color", "red");
+        $('#total').css("background-color", "red");
     }// end if statement
 
     // on the click of the delete button, run function removeEmployee

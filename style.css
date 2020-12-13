@@ -1,0 +1,29 @@
+h1 {
+    padding: 50px;
+    text-align: center;
+    background-color: lightgray;
+}
+
+h4 {
+    position: relative;
+    margin-bottom: 20px; 
+    margin-top: 20px;
+    text-align: left;
+    font-weight: normal;
+}
+
+#totalCost {
+    position: relative;
+    float: right;
+    font-weight: bold;
+}
+
+.info {
+    margin-bottom: 40px;
+}
+
+#submit {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+}

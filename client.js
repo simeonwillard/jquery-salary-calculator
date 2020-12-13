@@ -4,9 +4,7 @@ $(document).ready(readyNow);
 
 //declaring variables 
 const employeeInfo = []; //will use to store objects created by user
-let monthlyCost = 0; 
-let totalMonthlyWages = []; //will use to store calculations of wages
-let wages = 0;
+const totalMonthlyWages = []; //will use to store calculations of wages
 
 
 function readyNow() {
@@ -76,14 +74,14 @@ function renderToDom() {
 
     // storing wages as a number, rounded to 2 decimal places, in the 
     // variable monthlyCost and pushing those values to an array
-    monthlyCost = Number.parseFloat(wages).toFixed(2);
+    let monthlyCost = Number.parseFloat(wages).toFixed(2);
     totalMonthlyWages.push(monthlyCost);
     console.log(totalMonthlyWages);
     console.log(monthlyCost)
 
 } // end renderToDom
 
-
+//function to add the total monthly wages
 function addTotalCost() {
 
     //testing function addTotalCost
@@ -97,12 +95,15 @@ function addTotalCost() {
     } // end for loop
     console.log('sum of wages is: ', sumOfWages);
 
+    //emptying the total cost to only display the most current number
     $('#totalCost').empty();
 
+    // appending the sumOfWages to the DOM
     $('#totalCost').append(`
     <td id="total">Total Monthly: $${sumOfWages.toFixed(2)}</td>
     `);
 
+    // if the sumOfWages exceeds 20grand highlight the total in red
     if (sumOfWages >= 20000) {
         $('#total').css("background-color", "red");
     }// end if statement
@@ -122,28 +123,3 @@ function removeEmployee(){
     $(this).parent().parent().remove();
 }
 
-   
-
-
-
-// function renderTableHeadings(){
-
-//     const headings = ['First Name', 'Last Name', 'ID Number', 'Job Title', 'Annual Salary'];
-//     //generating table headings to the DOM
-//     for(heads of headings){
-//     $('.table').append(`
-//     <thead id="tableHead">
-//             <tr class="tableHead">
-//                 <th class="tableHead">${heads}</th>
-//                 // <th class="tableHead">${heads}</th>
-//                 // <th class="tableHead">${heads}</th>
-//                 // <th class="tableHead">${heads}</th>
-//                 // <th class="tableHead">${heads}</th>
-//             </tr>
-//     </thead>
-//     `);
-
-//     //clearing table header so only one displays
-//     $('#tableHead').empty();
-//     }
-// }

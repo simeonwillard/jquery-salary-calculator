@@ -2,12 +2,10 @@ console.log('client.js');
 
 $(document).ready(readyNow);
 
-//declaring our array variable to store the user information
-const employeeInfo = [];
-
-//declaring our costs variables 
-let monthlyCost = 0;
-let totalMonthlyWages = [];
+//declaring variables 
+const employeeInfo = []; //will use to store objects created by user
+let monthlyCost = 0; 
+let totalMonthlyWages = []; //will use to store calculations of wages
 let wages = 0;
 
 
@@ -65,29 +63,28 @@ function renderToDom() {
         wages = parseFloat(employee.annualSalary / 12);
         $('#employeeList').append(`
         <tr class="employees">
-            <td class="deleteEmployee" id="deleteName">${employee.firstName}</td>
-            <td class="deleteEmployee" id="deleteLast">${employee.lastName}</td>
-            <td class="deleteEmployee" id="deleteID">${employee.idNumber}</td>
-            <td class="deleteEmployee" id="deleteJob">${employee.jobTitle}</td>
-            <td class="deleteEmployee" id="deleteSalary">$${employee.annualSalary}</td>
-            <td class="deleteEmployee"><button class="delete btn btn-danger deleteEmployee" id="remove">Delete</button> 
+            <td id="deleteName">${employee.firstName}</td>
+            <td id="deleteLast">${employee.lastName}</td>
+            <td id="deleteID">${employee.idNumber}</td>
+            <td id="deleteJob">${employee.jobTitle}</td>
+            <td id="deleteSalary">$${employee.annualSalary}</td>
+            <td><button class="delete btn btn-danger">Delete</button> 
         </tr>`);
 
 
     } // end for loop
+
+    // storing wages as a number, rounded to 2 decimal places, in the 
+    // variable monthlyCost and pushing those values to an array
     monthlyCost = Number.parseFloat(wages).toFixed(2);
     totalMonthlyWages.push(monthlyCost);
     console.log(totalMonthlyWages);
     console.log(monthlyCost)
-    //monthlyCost.push(wages);
-
 
 } // end renderToDom
 
 
 function addTotalCost() {
-
-    $('.delete').on('click', removeEmployee);
 
     //testing function addTotalCost
     console.log('in addTotalCost');
@@ -110,21 +107,18 @@ function addTotalCost() {
         $('#totalCost').css("background-color", "red");
     }// end if statement
 
+    // on the click of the delete button, run function removeEmployee
+    $('.delete').on('click', removeEmployee);
+
 } // end addTotalCost
 
-
+// creating a function to delete an employee on the click of the delete button
 function removeEmployee(){
 
     //testing function
     console.log('in removeEmployee');
-    // $('#deleteName').remove();
-    // $('#deleteLast').remove();
-    // $('#deleteID').remove();
-    // $('#deleteJob').remove();
-    // $('#deleteSalary').remove();
     
-    // $('#remove').remove();
-    // $('td').remove('.deleteEmployee')
+    //identifying the element to delete, in this case the row of the table that the clicked button is in
     $(this).parent().parent().remove();
 }
 

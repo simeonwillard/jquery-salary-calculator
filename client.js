@@ -20,7 +20,6 @@ function readyNow() {
 
 //storing the user input into an object and pushing that input into employeeInfo
 function handleClick() {
-
     // testing function handleClick
     console.log('in handleClick');
 
@@ -52,7 +51,6 @@ function handleClick() {
 
 //rendering the pushed user input to a table on the DOM
 function renderToDom() {
-
     //testing function renderToDom
     console.log('in renderToDom');
 
@@ -67,12 +65,12 @@ function renderToDom() {
         wages = parseFloat(employee.annualSalary / 12);
         $('#employeeList').append(`
         <tr class="employees">
-            <td>${employee.firstName}</td>
-            <td>${employee.lastName}</td>
-            <td>${employee.idNumber}</td>
-            <td>${employee.jobTitle}</td>
-            <td>$${employee.annualSalary}</td>
-            <td><button id="delete">Delete</button> 
+            <td class="deleteEmployee" id="deleteName">${employee.firstName}</td>
+            <td class="deleteEmployee" id="deleteLast">${employee.lastName}</td>
+            <td class="deleteEmployee" id="deleteID">${employee.idNumber}</td>
+            <td class="deleteEmployee" id="deleteJob">${employee.jobTitle}</td>
+            <td class="deleteEmployee" id="deleteSalary">$${employee.annualSalary}</td>
+            <td class="deleteEmployee"><button class="delete btn btn-danger deleteEmployee" id="remove">Delete</button> 
         </tr>`);
 
 
@@ -83,10 +81,13 @@ function renderToDom() {
     console.log(monthlyCost)
     //monthlyCost.push(wages);
 
+
 } // end renderToDom
 
 
 function addTotalCost() {
+
+    $('.delete').on('click', removeEmployee);
 
     //testing function addTotalCost
     console.log('in addTotalCost');
@@ -100,6 +101,7 @@ function addTotalCost() {
     console.log('sum of wages is: ', sumOfWages);
 
     $('#totalCost').empty();
+
     $('#totalCost').append(`
     <td>Total Monthly: $${sumOfWages.toFixed(2)}</td>
     `);
@@ -107,15 +109,26 @@ function addTotalCost() {
     if (sumOfWages >= 20000) {
         $('#totalCost').css("background-color", "red");
     }// end if statement
+
+} // end addTotalCost
+
+
+function removeEmployee(){
+
+    //testing function
+    console.log('in removeEmployee');
+    // $('#deleteName').remove();
+    // $('#deleteLast').remove();
+    // $('#deleteID').remove();
+    // $('#deleteJob').remove();
+    // $('#deleteSalary').remove();
+    
+    // $('#remove').remove();
+    // $('td').remove('.deleteEmployee')
+    $(this).parent().parent().remove();
 }
 
-    // for (let wages of employeeInfo){
-    //     totalMonthlyCost = Number(parseFloat(wages.annualSalary + cost).toFixed(2));
-    //     $('#totalCost').append(`
-    //     <h2>$${totalMonthlyCost}</h2>
-    //     `);
-    // } 
-
+   
 
 
 
